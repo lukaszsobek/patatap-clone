@@ -12,6 +12,7 @@
 	var circles = []
 
 	// number of mp3 files in the sound directory
+	// to calculate sound to be played
 	var soundFileNumber = 26
 
 
@@ -36,7 +37,6 @@
 		for(var i = 0; i < circles.length; i++) {
 			circles[i].fillColor.hue += 1
 			circles[i].scale(0.9)
-			//console.log(circles[i].radius)
 		}
 	}
 
@@ -53,7 +53,7 @@
 
 		// play the sound
 		var sound = new Howl({
-  		src: ['assets/sound/ (' + fileToPlay + ').mp3']
+  		src: ['assets/sound/' + fileToPlay + '.mp3']
 		});
 		sound.play();
 
@@ -62,14 +62,12 @@
 		var randomize = Point.random()
 		var randomPoint = maxPoint * randomize
 
-
 		// randomize color
 		var randomColor = 
 			"rgb(" 
 			+ randomizeColor() + ", " 
 			+ randomizeColor() + ", "
 			+ randomizeColor() + ")"
-
 
 		// create circle
 		circles.push(drawCircle(randomPoint,500,randomColor))
