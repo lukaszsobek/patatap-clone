@@ -3,10 +3,59 @@
 <head>
 	<meta charset="UTF-8"/>
 	<title>Patatap Clone</title>
-	<link rel="stylesheet" href="assets/css/style.css"/>
 	<script src="assets/js/lib/paper-full.min.js"></script>
+	<link rel="stylesheet" href="assets/css/style.css">
 	<script type="text/paperscript" canvas="myCanvas">
+
+	//user presses random key
+	//big circle appears
+	//sound plays
+	//circle gets smaller 
+	//circle changes color
+
+	function drawCircle(width, heigh, radius, color) {
+
+		new Path.Circle(new Point(width,heigh), radius).fillColor = color
+
+	}
+
+
+	function rndColor() {
+		return Math.floor(Math.random() * 256)
+	}
+	
+
+
+	function onKeyDown(event) {
+
+		// get document dimensions
+		var width = document.querySelector("body").offsetWidth
+		var height = document.querySelector("body").offsetHeight
+
+		// randomize coordinates
+		var rndCoords = {}
+		rndCoords.width = Math.floor(Math.random() * width + 1)
+		rndCoords.height = Math.floor(Math.random() * height + 1)
+
+		// randomize color
+		var randomColor = 
+			"rgb(" 
+			+ rndColor() + ", " 
+			+ rndColor() + ", "
+			+ rndColor() + ")"
+
+		// create circle
+		drawCircle(rndCoords.width,rndCoords.height,100,randomColor)
+
 		
+	}
+
+
+
+
+
+
+
 
 	</script>
 </head>
