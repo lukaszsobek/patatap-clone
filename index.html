@@ -8,7 +8,11 @@
 	<link rel="stylesheet" href="assets/style/style.css">
 	<script type="text/paperscript" canvas="myCanvas">
 
+	// will hold all appearing circles
 	var circles = []
+
+	// number of mp3 files in the sound directory
+	var soundFileNumber = 26
 
 
 	// draws random circle
@@ -40,6 +44,19 @@
 	// react to keypresses
 	function onKeyDown(event) {
 
+		// get character code of key pressed
+		var keyPressed = event.key.charCodeAt()
+
+		// select file to play based on character
+		// code and amount of files in directory
+		var fileToPlay = Math.floor(keyPressed % soundFileNumber)
+
+		// play the sound
+		var sound = new Howl({
+  		src: ['assets/sound/ (' + fileToPlay + ').mp3']
+		});
+		sound.play();
+
 		// get random point
 		var maxPoint = new Point(view.size.width, view.size.height)
 		var randomize = Point.random()
@@ -64,5 +81,6 @@
 </head>
 <body>
 	<canvas id="myCanvas" resize></canvas>
+	<script src="assets/script/script.js"></script>
 </body>
 </html>
