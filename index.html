@@ -13,10 +13,8 @@
 	//circle gets smaller 
 	//circle changes color
 
-	function drawCircle(width, heigh, radius, color) {
-
-		new Path.Circle(new Point(width,heigh), radius).fillColor = color
-
+	function drawCircle(point, radius, color) {
+		new Path.Circle(point, radius).fillColor = color
 	}
 
 
@@ -24,12 +22,13 @@
 		return Math.floor(Math.random() * 256)
 	}
 
+
 	function onKeyDown(event) {
 
-		// randomize coordinates
-		var rndCoords = {}
-		rndCoords.width = Math.floor(Math.random() * view.size._width + 1)
-		rndCoords.height = Math.floor(Math.random() * view.size._height + 1)
+		// get random point
+		var maxPoint = new Point(view.size.width, view.size.height)
+		var randomize = Point.random()
+		var randomPoint = maxPoint * randomize
 
 		// randomize color
 		var randomColor = 
@@ -39,7 +38,7 @@
 			+ randomizeColor() + ")"
 
 		// create circle
-		drawCircle(rndCoords.width,rndCoords.height,100,randomColor)
+		drawCircle(randomPoint,100,randomColor)
 
 		
 	}
