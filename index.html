@@ -3,8 +3,9 @@
 <head>
 	<meta charset="UTF-8"/>
 	<title>Patatap Clone</title>
-	<script src="assets/js/lib/paper-full.min.js"></script>
-	<link rel="stylesheet" href="assets/css/style.css">
+	<script src="assets/script/lib/paper-full.min.js"></script>
+	<script src="assets/script/lib/howler.min.js"></script>
+	<link rel="stylesheet" href="assets/style/style.css">
 	<script type="text/paperscript" canvas="myCanvas">
 
 	var circles = []
@@ -31,6 +32,7 @@
 		for(var i = 0; i < circles.length; i++) {
 			circles[i].fillColor.hue += 1
 			circles[i].scale(0.9)
+			//console.log(circles[i].radius)
 		}
 	}
 
@@ -53,7 +55,7 @@
 
 
 		// create circle
-		circles.push(drawCircle(randomPoint,200,randomColor))
+		circles.push(drawCircle(randomPoint,500,randomColor))
 
 	}
 
