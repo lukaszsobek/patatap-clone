@@ -11,13 +11,14 @@
 	// will hold all appearing circles
 	var circles = []
 
+
 	// number of mp3 files in the sound directory
-	// to calculate sound to be played
+	// for randomization purposes
 	var soundFileNumber = 26
 
 
-	// draws random circle
 	function drawCircle(point,radius,color) {
+	// draws random circle
 
 		var output = new Path.Circle(point, radius)
 		output.fillColor = color
@@ -26,26 +27,66 @@
 	}
 
 
-	// returns random value between 0-255
 	function randomizeColor() {
+	// returns random value between 0-255
+	// for rgb or rgba color genereation
+
 		return Math.floor(Math.random() * 256)
+
 	}
 
 
-	// animate color and size
+	function stringToColour(str) {
+	// changes input to hex color value
+	// from https://stackoverflow.com/questions/3426404/create-a-hexadecimal-colour-based-on-a-string-with-javascript
+
+		// prepare stuff
+	    var hash = 0
+	    str = String(str)
+
+
+	    for (var i = 0; i < str.length; i++) {
+	        hash = str.charCodeAt(i) + ((hash << 5) - hash)
+	    }
+
+	    var colour = "#"
+	    for (var i = 0; i < 3; i++) {
+	        var value = (hash >> (i * 8)) & 0xFF;
+	        colour += ('00' + value.toString(16)).substr(-2)
+	    }
+
+	    return colour
+	}
+
+
 	function onFrame(event) {
+	// animate color and size
+	// paperjs native event
+
 		for(var i = 0; i < circles.length; i++) {
 			circles[i].fillColor.hue += 1
 			circles[i].scale(0.9)
+
+			// remove circle if not visible
+			// to increase performance
+			if(circles[i].area < 4) {
+				circles[i].remove()
+				circles.splice(i,1)
+				i--
+			}
 		}
 	}
 
 
-	// react to keypresses
 	function onKeyDown(event) {
+	// react to keypresses
+	// paperjs native event
 
 		// get character code of key pressed
 		var keyPressed = event.key.charCodeAt()
+
+		// get color based on key pressed
+		var keyColor = stringToColour(keyPressed)
 
 		// select file to play based on character
 		// code and amount of files in directory
@@ -53,24 +94,17 @@
 
 		// play the sound
 		var sound = new Howl({
-  		src: ['assets/sound/' + fileToPlay + '.mp3']
+  			src: ['assets/sound/' + fileToPlay + '.mp3']
 		});
 		sound.play();
 
-		// get random point
+		// get random point on canvas to draw circle around
 		var maxPoint = new Point(view.size.width, view.size.height)
 		var randomize = Point.random()
 		var randomPoint = maxPoint * randomize
 
-		// randomize color
-		var randomColor = 
-			"rgb(" 
-			+ randomizeColor() + ", " 
-			+ randomizeColor() + ", "
-			+ randomizeColor() + ")"
-
 		// create circle
-		circles.push(drawCircle(randomPoint,500,randomColor))
+		circles.push(drawCircle(randomPoint,500,keyColor))
 
 	}
 
@@ -79,6 +113,5 @@
 </head>
 <body>
 	<canvas id="myCanvas" resize></canvas>
-	<script src="assets/script/script.js"></script>
 </body>
 </html>
