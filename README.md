@@ -1,5 +1,5 @@
 # patatap-clone
-Patatap clone with circles using paperJS and HowlerJS
+Patatap clone with circles
 
 Press a key and a circle will appear on the screen along with a sound.
 The sound and color of the circle remain constant based on the key pressed.
